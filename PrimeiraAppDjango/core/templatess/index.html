@@ -1,0 +1,34 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+<center>
+    <h2>Index</h2>
+    <img src="{% static 'images/django.png' %}">
+    <h1> {{curso}}</h1>
+    <h1> {{outro}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Produtos</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+            </tr>
+        </thead>
+        {% for produto in produtos%}
+            <tr>
+               <td><a href="{% url 'produto' produto.id %}">{{ produto.nome }}</a></td>
+                <td>{{produto.preco}}</td>
+            </tr>
+        {% endfor%}
+    </table>
+    <button onclick="teste()">Clque aqui</button>
+    <script type = 'text/javascript' src="{% static 'js/script.js'%}"> </script>
+</center>
+</body>
+</html>
