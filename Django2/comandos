@@ -57,7 +57,13 @@
 #CONFIGURAR ROTAS EM django2/urls.py em seguida criar urls.py na app 'core' e configurar suas respectivas rotas
 
 #realizar o migrate com o comando: $python manage.py migrate
+
 #python manage.py createsuperuser
+
+# sempre que criar um modelo
+    $python manage.py makemigrations ---> $ python manage.py migrate
+
+
 
 #python manage.py runserver
 #criação de forms
@@ -67,5 +73,35 @@
     help(forms.CharField)
 
 
+#usuario e senha BD: feijao ; arroz
+
+#CONFIGURAÇÂO PARA UPLOAD DE IMAGENS
+        1:#Django2/settings.py
+
+            STATIC_URL = '/static/'
+            STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+            #configuraçao imagens em pastas corretas
+            MEDIA_URL = '/media/'
+            MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+        2:#Django2/urls.py
+
+            from django.contrib import admin
+            from django.urls import path, include
+
+            from django.conf.urls.static import static
+            from django.conf import settings
+
+            urlpatterns = [
+                path('admin/', admin.site.urls),
+                path('', include('core.urls')) #rotas que não são admin serão inseridas as rotas da app 'core'
+            ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#CONFIGURAÇAO DEFAULT POSTGREE SQL --> HEROKU
+    $pip install dj_database_url psycopg2-binary
+#GERANDO REQUEIRMENTOS PARA O HEROKU
+#usando postgreesql com heroku settings.py
+DATABASES = {
+    'default': dj_database_url.config()
+}
