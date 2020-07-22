@@ -105,3 +105,10 @@
 DATABASES = {
     'default': dj_database_url.config()
 }
+
+#BOTANDO PRA RODAR NO HEROKU --> CRIAR ARQUIVOS: runtime.txt; .gitignore, Procfile, requirements.txt
+    1: $heroku login
+    2:$ heroku create django2-lfft --buildpack heroku/python
+
+
+
