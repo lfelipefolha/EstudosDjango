@@ -1,0 +1,32 @@
+1:
+    pip install django psycopg2-binary gunicorn dj-static django-stdimage
+    pip freeze > requirements.txt
+    django-admin startproject fusion .
+    django-admin startapp core
+2 - Fazer alterações no arquivo settings.py
+    2.1 - Configuração em database
+    2.2  - Mudar localização e idioma
+    2.3 -  Adicionar as seguintes conf no final
+
+            STATIC_URL = '/static/'
+            MEDIA_URL = 'media/'
+            STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+            MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+3 - Fazer configurções em fusion/urls.py
+
+        from django.contrib import admin
+        from django.urls import path, include
+        from django.conf.urls.static import static
+        from django.conf import settings
+
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include('core.urls')),
+
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+4 - Criar core/url.py
+5 - Configurar view
+    5.1 adiconar em core/urls.py
