@@ -101,7 +101,7 @@
 #CONFIGURAÇAO DEFAULT POSTGREE SQL --> HEROKU
     $pip install dj_database_url psycopg2-binary
 #GERANDO REQUEIRMENTOS PARA O HEROKU
-#usando postgreesql com heroku settings.py
+#gusando postgreesql com heroku settings.py
 DATABASES = {
     'default': dj_database_url.config()
 }
