@@ -1,0 +1,121 @@
+1: pip install django whitenoise gunicorn django-bootstrap4 PyMySQL django-stdimage
+2: pip freeze > requirements.txt
+3: django-admin startproject Django2 .  #inicia um projeto na pasta já existente
+4: django-admin startapp core
+
+#Em seguida foi feita as configurações no arquivo settings.py
+
+
+    1: #adiconando a aplicação 'core', 'bootstrap4' e 'stdimage
+         INSTALLED_APPS = [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'core',
+            'bootstrap4',
+            'stdimage',
+        ]
+    2: #configurando a parte middleware, adicionando o whitenoise
+        MIDDLEWARE = [
+            'django.middleware.security.SecurityMiddleware',
+            #'whitenoise.middleware.WhiteNoiseMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        ]
+    3: #configurando os diretorios em templates
+
+    4: #configurando BD para mysql
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'Django2',
+                'USER': 'gravity',
+                'PASSWORD': 'falls',
+                'HOST': 'localhost',
+                'PORT': '3306',
+            }
+        }
+    5: #alterando idioma e local
+
+        LANGUAGE_CODE = 'pt-br'
+        TIME_ZONE = 'America/Sao_Paulo'
+
+    6: #arquivos estaticos config
+
+        STATIC_URL = '/static/'
+        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#CRIAR VIEWS -> CRIAR PASTAS (templates e static(js, images, css) E ARQUIVOS HTML DAS VIEWS
+
+#CONFIGURAR ROTAS EM django2/urls.py em seguida criar urls.py na app 'core' e configurar suas respectivas rotas
+
+#realizar o migrate com o comando: $python manage.py migrate
+
+#python manage.py createsuperuser
+
+# sempre que criar um modelo
+    $python manage.py makemigrations ---> $ python manage.py migrate
+
+
+
+#python manage.py runserver
+#criação de forms
+# python manage.py shell
+    from django import forms
+    dir(forms)
+    help(forms.CharField)
+
+
+#usuario e senha BD: feijao ; arroz
+
+#CONFIGURAÇÂO PARA UPLOAD DE IMAGENS
+        1:#Django2/settings.py
+
+            STATIC_URL = '/static/'
+            STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+            #configuraçao imagens em pastas corretas
+            MEDIA_URL = '/media/'
+            MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+        2:#Django2/urls.py
+
+            from django.contrib import admin
+            from django.urls import path, include
+
+            from django.conf.urls.static import static
+            from django.conf import settings
+
+            urlpatterns = [
+                path('admin/', admin.site.urls),
+                path('', include('core.urls')) #rotas que não são admin serão inseridas as rotas da app 'core'
+            ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#CONFIGURAÇAO DEFAULT POSTGREE SQL --> HEROKU
+    $pip install dj_database_url psycopg2-binary
+#GERANDO REQUEIRMENTOS PARA O HEROKU
+#gusando postgreesql com heroku settings.py
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
+#BOTANDO PRA RODAR NO HEROKU --> CRIAR ARQUIVOS: runtime.txt; .gitignore, Procfile, requirements.txt
+    1: $heroku login
+    2:$ heroku create django2-lfft --buildpack heroku/python
+    3: $git init; $git add . $git commit -m "mensagem"; $git push heroku master
+    4:$heroku run python manage.py migrate
+    5:$heroku run python manage.py createsuperuser
+
+ #ZERANDO BD --> heroku
+    $heroku pg:reset DATABASE_URL
+    $heroku run python manage.py migrate
+    $heroku run python manage.py createsuperuser
+
+

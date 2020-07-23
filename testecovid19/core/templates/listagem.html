@@ -1,0 +1,47 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <div class="container">
+        {% if pacientes %}
+        <h1>Pacientes</h1>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Data de nascimento</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Tipo de teste</th>
+                  <th scope="col">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in pacientes %}
+                <tr>
+                    <td scope="row">{{ p.id }}</td>
+                    <td scope="row">{{ p.nome }}</td>
+                    <td scope="row">{{ p.dnasc }}</td>
+                    <td scope="row">{{ p.email }}</td>
+                    <td scope="row">{{ p.typeteste }}</td>
+                    <td scope="row">{{ p.resteste }}</td>
+                </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'index'%}"><h2>Pagina principal</h2></a>
+        {% else %}
+            <h2>AINDA NÂO EXISTEM PACIENTES CADASTRADOS</h2>
+            <a href="{% url 'cadastro'%}"><h2>clique aqui para cadastar</h2></a>
+        {% endif%}
+    </div>
+
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>
