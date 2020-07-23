@@ -30,3 +30,9 @@
 4 - Criar core/urls.py
 5 - Configurar view
     5.1 adiconar em core/urls.py
+6 - ADD Modelos em models.py
+    6.1 python manage.py makemigratons
+    6.2 python manage.py migrate
+    6.3 python manage.py create superuser (arroz, feijao)
+7 - Add coisas em core/admin.py
+8 - Foi configurado em core/models.py uma forma de gerar nomes aleatorios pra uploads
