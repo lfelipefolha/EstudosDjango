@@ -27,6 +27,6 @@
 
         ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-4 - Criar core/url.py
+4 - Criar core/urls.py
 5 - Configurar view
     5.1 adiconar em core/urls.py
